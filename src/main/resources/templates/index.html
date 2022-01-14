@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Get your weather information here:</h1>
+    <form action="/search" method="get" th:object = ${result}>
+        <input type="text" name ="searchField" id = "searchField" placeholder="Enter a city you wish to query.">
+        <button type="submit" formaction="/search/result" formmethod="POST">Search</button>
+    </form>
+
+    <div th:if="${result!=null}">
+
+        <h2>Results:</h2>
+        <h3 th:each="t:${result}">
+            <h4 th:text = "${t.cityName}"></h4>
+            <h4 th:text = "${t.temperature}"></h4>
+        </h3>
+
+    </div>
+
+</body>
+</html>
