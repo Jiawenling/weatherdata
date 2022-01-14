@@ -23,23 +23,23 @@ import static com.example.weatherRequest.Constants.*;
 @Service
 public class WeatherService {
 
-    // private final String appId ;
+    private final String appId ;
 
-    // public WeatherService(){
-    //     String id = System.getenv(ENV_OPENWEATHERMAP_KEY);
-    //     if(id!=null & (id.trim().length()>0)){
-    //         appId = id;
-    //     } else {
-    //         appId = "noID";
-    //     }
-    // }
+    public WeatherService(){
+        String id = System.getenv(ENV_OPENWEATHERMAP_KEY);
+        if(id!=null & (id.trim().length()>0)){
+            appId = id;
+        } else {
+            appId = "noID";
+        }
+    }
 
     public List<Weather> getWeatherInfo(String city) throws IOException{
         RestTemplate template = new RestTemplate();
         String url = UriComponentsBuilder
             .fromUriString("http://api.openweathermap.org/data/2.5/weather")
             .queryParam("q", city)
-            .queryParam("appid", "5b86734006e2bbe73f6fd073ae13d9ac")
+            .queryParam("appid", appId)
             .queryParam("units","metric")
             .toUriString();
 
