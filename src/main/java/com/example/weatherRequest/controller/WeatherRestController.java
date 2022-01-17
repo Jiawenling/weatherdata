@@ -38,13 +38,18 @@ public class WeatherRestController {
         JsonObject weatherResults;
         try{
 
-//            Optional<JsonObject> opt = weatherCacheService.get(city);
-//            if(opt.isPresent()){
-//                weatherResults = opt.get();
-//            }
+            Optional<JsonObject> opt = weatherCacheService.get(city);
+            if(opt.isPresent()){
+                logger.info("City information retrieved from cache");
+                weatherResults = opt.get();
 
-            JsonObject weatherResults = weatherService.getWeatherObjectInJson(weatherService.getWeatherinJson(city));
-                    ;
+            } else{
+
+                weatherResults = weatherService.getWeatherObjectInJson(weatherService.getWeatherinJson(city));
+                weatherCacheService.save(city, weatherResults);
+                logger.info("City information has been cached");
+            }
+
             return ResponseEntity.ok(weatherResults.toString());
         } catch(IOException e){
             logger.error("city not found");

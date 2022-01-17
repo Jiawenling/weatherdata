@@ -23,8 +23,12 @@ public class WeatherCacheService {
     }
 
     public Optional<JsonObject> get(String city) {
-        String jsonString = weatherRepo.get(city);
-        try (InputStream is = new ByteArrayInputStream(jsonString.getBytes())) {
+        Optional<String> jsonString = Optional.ofNullable(weatherRepo.get(city));
+        if(jsonString.isEmpty()){
+            return Optional.empty();
+        }
+
+        try (InputStream is = new ByteArrayInputStream(jsonString.get().getBytes())) {
             JsonReader reader = Json.createReader(is);
             return Optional.of(reader.readObject());
         } catch (IOException e) {
