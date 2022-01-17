@@ -1,6 +1,7 @@
 package com.example.weatherRequest.controller;
 
 import com.example.weatherRequest.Weather;
+import com.example.weatherRequest.service.WeatherCacheService;
 import com.example.weatherRequest.service.WeatherService;
 import jakarta.json.JsonObject;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(produces = "application/json")
@@ -25,12 +27,24 @@ public class WeatherRestController {
     @Autowired
     WeatherService weatherService;
 
+    @Autowired
+    WeatherCacheService weatherCacheService;
+
 
     @GetMapping("/{city}")
     public ResponseEntity<String> showWeather(@PathVariable String city) {
 
+
+        JsonObject weatherResults;
         try{
-            JsonObject weatherResults = weatherService.getWeatherinJson(city);
+
+//            Optional<JsonObject> opt = weatherCacheService.get(city);
+//            if(opt.isPresent()){
+//                weatherResults = opt.get();
+//            }
+
+            JsonObject weatherResults = weatherService.getWeatherObjectInJson(weatherService.getWeatherinJson(city));
+                    ;
             return ResponseEntity.ok(weatherResults.toString());
         } catch(IOException e){
             logger.error("city not found");

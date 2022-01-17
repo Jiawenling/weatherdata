@@ -23,7 +23,7 @@ public class WeatherController {
     @PostMapping("result")
     public String getWeatherInfo(@RequestBody MultiValueMap<String, String> form, Model model) throws IOException{
         String city = form.getFirst("searchField");
-        model.addAttribute("result", weatherSvc.getWeatherInfo(city));
+        model.addAttribute("result", weatherSvc.getWeatherInfo(weatherSvc.getWeatherinJson(city)));
         return "index";
     }
 

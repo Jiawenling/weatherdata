@@ -52,8 +52,24 @@ public class WeatherService {
             return data;
         }
 
+    }
 
-        }
+    public JsonObject getWeatherObjectInJson(JsonObject data){
+        JsonArray readings = data.getJsonArray("weather");
+        final String cityName = data.getString("name");
+        float temperature = (float)data.getJsonObject("main").getJsonNumber("temp").doubleValue();
+//        String main = data.getString("main");
+//        String description = data.getString("description");
+//        String icon = data.getString("icon");
+        return Json.createObjectBuilder()
+                .add("cityName", cityName)
+//                .add("main", main)
+//                .add("description", description )
+//                .add("icon",icon )
+                .add("temperature", temperature)
+                .build();
+    }
+
 
     public List<Weather> getWeatherInfo(JsonObject data) throws IOException{
 

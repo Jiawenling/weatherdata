@@ -12,7 +12,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.logging.Logger;
 
-import static com.example.weatherRequest.Constants.BEAN_WEATHER_CACHE;
+import static com.example.weatherRequest.Constants.*;
 
 @Configuration
 public class RedisConfig {
