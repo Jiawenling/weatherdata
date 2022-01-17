@@ -17,8 +17,8 @@
 
         <h2>Results:</h2>
         <h3 th:each="t:${result}">
-            <h4 th:text = "${t.cityName}"></h4>
-            <h4 th:text = "${t.temperature}"></h4>
+            <h4 th:text = "${t.getCityName()}"></h4>
+            <h4 th:text = "${t.getTemperature()}"></h4>
         </h3>
 
     </div>
